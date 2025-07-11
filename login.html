@@ -1,0 +1,84 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login com Discord</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #4ba74f, #247c2c);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 28px;
+    }
+
+    .user-info {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .loading {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="user-info" id="user-box">
+    <p class="loading">Carregando informações do Discord...</p>
+  </div>
+
+  <script>
+    const token = new URLSearchParams(window.location.hash.substring(1)).get("access_token");
+
+    if (token) {
+      fetch("https://discord.com/api/users/@me", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => res.json())
+      .then(user => {
+        // Salva dados do usuário no navegador
+        localStorage.setItem("discordUser", JSON.stringify(user));
+
+        // Exibe boas-vindas temporária
+        document.getElementById("user-box").innerHTML = `
+          <img class="avatar" src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" alt="Avatar" />
+          <h2>Bem-vindo, ${user.username}#${user.discriminator}!</h2>
+          <p>Redirecionando para a página inicial...</p>
+        `;
+
+        // Redireciona depois de 2 segundos
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
+      })
+      .catch(err => {
+        console.error("Erro ao buscar dados:", err);
+        document.getElementById("user-box").textContent = "Não foi possível carregar seus dados 😢";
+      });
+    } else {
+      document.getElementById("user-box").textContent = "Token de acesso não encontrado 😢";
+    }
+  </script>
+</body>
+</html>

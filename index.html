@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cisum • Bot</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header, main, footer {
+      padding: 20px;
+    }
+    header { background-color: #4CAF50; color: white; }
+    main { background-color: #f0f0f0; }
+    footer { background-color: #333; color: white; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div id="header"></div>
+  <div id="main"></div>
+  <div id="footer"></div>
+
+  <script>
+    const loadPart = (id, file) => {
+      fetch(file)
+        .then(response => {
+          if (!response.ok) throw new Error(`Erro ao carregar ${file}`);
+          return response.text();
+        })
+        .then(html => {
+          document.getElementById(id).innerHTML = html;
+
+          // Se carregou o header, processar login
+          if (id === "header") {
+            setTimeout(() => {
+              const user = JSON.parse(localStorage.getItem("discordUser"));
+              const userArea = document.querySelector("#user-area");
+
+              if (user && userArea) {
+                userArea.innerHTML = `
+                  <div class="logged-user" style="display:flex; align-items:center; gap:10px;">
+                    <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" 
+                         alt="Avatar" style="width:32px; height:32px; border-radius:50%; border:2px solid #007bff;" />
+                    <span style="font-weight:bold; color:#2e7c33;">${user.username}</span>
+                    <button onclick="logoutDiscord()" 
+                      style="background-color:transparent; border:none; color:#007bff; font-weight:bold; cursor:pointer; padding:6px 12px; border-radius:6px;"
+                      onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor='transparent'">
+                      Sair
+                    </button>
+                  </div>
+                `;
+              }
+            }, 200);
+          }
+        })
+        .catch(error => console.error(error));
+    };
+
+    const logoutDiscord = () => {
+      localStorage.removeItem("discordUser");
+      window.location.reload();
+    };
+
+    // Carrega as partes da página
+    loadPart("header", "header.html");
+    loadPart("main", "main.html");
+    loadPart("footer", "footer.html");
+
+    // 👇 Captura o access_token se vier via URL
+    const hash = window.location.hash;
+    const token = new URLSearchParams(hash.substring(1)).get("access_token");
+
+    if (token) {
+      fetch("https://discord.com/api/users/@me", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => res.json())
+      .then(user => {
+        localStorage.setItem("discordUser", JSON.stringify(user));
+        window.location.hash = "";
+        window.location.reload(); // Recarrega pra aplicar login
+      })
+      .catch(err => console.error("Erro ao buscar dados do Discord:", err));
+    }
+  </script>
+
+</body>
+</html>

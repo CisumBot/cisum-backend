@@ -1,0 +1,154 @@
+<!-- header.html -->
+<header>
+  <div class="container">
+    <div class="left">
+      <img src="avatar.png" alt="Cisum Bot" class="logo" />
+      <span class="bot-name">Cisum Bot</span>
+    </div>
+    <nav class="center">
+      <a href="index.html" class="nav-btn white">Página Principal</a>
+      <a href="loja.html" class="nav-btn">Loja</a>
+      <a href="#" class="nav-btn">Comandos</a>
+      <a href="resgate.html" class="nav-btn">Resgate</a>
+    </nav>
+    <div class="right" id="user-area">
+<a
+  href="https://discord.com/oauth2/authorize?client_id=1328097422651691089&response_type=token&redirect_uri=https%3A%2F%2Fcisumbot.netlify.app%2Flogin&scope=identify"
+  class="discord-btn"
+>
+  Login com Discord
+</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .bot-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2e7c33;
+  }
+
+  .center {
+    display: flex;
+    gap: 15px;
+  }
+
+  .nav-btn {
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    color: #333;
+    background-color: transparent;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+
+  .nav-btn.green {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .nav-btn:hover {
+    background-color: #eee;
+  }
+
+  .nav-btn.green:hover {
+    background-color: #218838;
+  }
+
+  .discord-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+
+  .discord-btn:hover {
+    background-color: #0069d9;
+  }
+
+  .logged-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logged-user img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #007bff;
+  }
+
+  .logged-user span {
+    font-weight: bold;
+    color: #2e7c33;
+  }
+
+  .logout-btn {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+  }
+
+  .logout-btn:hover {
+    background-color: #f0f0f0;
+  }
+</style>
+
+<script>
+  const user = JSON.parse(localStorage.getItem("discordUser"));
+  const userArea = document.getElementById("user-area");
+
+  if (user) {
+    userArea.innerHTML = `
+      <div class="logged-user">
+        <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" alt="Avatar" />
+        <span>${user.username}</span>
+        <button class="logout-btn" onclick="logoutDiscord()">Sair</button>
+      </div>
+    `;
+  }
+
+  function logoutDiscord() {
+    localStorage.removeItem("discordUser");
+    window.location.reload();
+  }
+</script>

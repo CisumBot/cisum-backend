@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cisum • Resgate Diário</title>
+  <link rel="stylesheet" href="index.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('Lojabackground.png') center center / cover no-repeat fixed;
+      font-family: Arial, sans-serif;
+      color: #333;
+      text-align: center;
+    }
+
+    main {
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 {
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .status-box {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    .status-box p {
+      font-size: 18px;
+      margin: 12px 0;
+    }
+
+    .daily-btn {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 28px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .daily-btn:hover {
+      background-color: #218838;
+    }
+
+    .disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <main>
+    <h1>Olá, <span id="username">Usuário</span>! 👋</h1>
+
+    <div class="status-box">
+      <p><strong>💰 Seu saldo atual:</strong> <span id="saldo">--</span></p>
+      <p><strong>⏳ Tempo até próximo resgate:</strong> <span id="tempoRestante">--</span></p>
+      <button class="daily-btn" id="resgatarBtn">Resgatar Daily</button>
+    </div>
+
+    <p style="color:white; margin-top:30px;">A Cisum agradece seu apoio diário 💚</p>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("discordUser"));
+
+    if (!user?.username || !user?.id) {
+      alert("Você precisa estar logado para acessar esta página.");
+      location.href = "/login.html";
+    }
+
+    document.getElementById("username").textContent = user.username;
+    const userId = user.id;
+
+    const loadPart = (id, file) => {
+      fetch(file)
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById(id).innerHTML = html;
+
+          if (id === "header") {
+            setTimeout(() => {
+              const userArea = document.querySelector("#user-area");
+              if (user && userArea) {
+                userArea.innerHTML = `
+                  <div class="logged-user" style="display:flex; align-items:center; gap:10px;">
+                    <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png"
+                         alt="Avatar" style="width:32px; height:32px; border-radius:50%; border:2px solid #007bff;" />
+                    <span style="font-weight:bold; color:#2e7c33;">${user.username}</span>
+                    <button onclick="logoutDiscord()" 
+                      style="background-color:transparent; border:none; color:#007bff; font-weight:bold; cursor:pointer; padding:6px 12px; border-radius:6px;"
+                      onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor='transparent'">
+                      Sair
+                    </button>
+                  </div>
+                `;
+              }
+            }, 200);
+          }
+        });
+    };
+
+    const logoutDiscord = () => {
+      localStorage.removeItem("discordUser");
+      location.href = "/login.html";
+    };
+
+    loadPart("header", "header.html");
+    loadPart("footer", "footer.html");
+
+    const saldoEl = document.getElementById("saldo");
+    const tempoEl = document.getElementById("tempoRestante");
+    const btn = document.getElementById("resgatarBtn");
+
+    async function atualizarStatus() {
+      try {
+        const res = await fetch(`/status?userID=${userId}`);
+        const data = await res.json();
+
+        saldoEl.textContent = data.coins ?? "--";
+
+        if (data.timeLeft > 0) {
+          const mins = Math.ceil(data.timeLeft / 60000);
+          tempoEl.textContent = `${mins} min`;
+          btn.disabled = true;
+          btn.classList.add("disabled");
+        } else {
+          tempoEl.textContent = "Pronto para resgatar!";
+          btn.disabled = false;
+          btn.classList.remove("disabled");
+        }
+      } catch (err) {
+        tempoEl.textContent = "--";
+        saldoEl.textContent = "--";
+      }
+    }
+
+    btn.addEventListener("click", async () => {
+      btn.disabled = true;
+
+      try {
+        const res = await fetch("/daily", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userID: userId })
+        });
+
+        const result = await res.json();
+
+        if (result.message.includes("recebeu")) {
+          alert(`✅ ${result.message}`);
+          saldoEl.textContent = result.newBalance;
+          tempoEl.textContent = "24h";
+        } else {
+          const min = Math.ceil(result.timeLeft / 60000);
+          alert(`⌛ Você já resgatou hoje. Aguarde ${min} min.`);
+        }
+      } catch (err) {
+        alert("❌ Erro ao resgatar: " + err.message);
+      }
+
+      atualizarStatus();
+    });
+
+    atualizarStatus();
+  </script>
+</body>
+</html>

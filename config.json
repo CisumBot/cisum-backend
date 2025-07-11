@@ -1,0 +1,4 @@
+{
+  "mongoURL": "mongodb+srv://nogueirathales1200:AKc5C71ORqtMZPag@cluster0.4lcca.mongodb.net/cisum",
+  "mongoURL2": "mongodb+srv://cisumbot:c72Il1uN3Rj3RMKq@figurinhas.ludhqfm.mongodb.net/?retryWrites=true&w=majority&appName=figurinhas"
+}

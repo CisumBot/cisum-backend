@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loja da Cisum • Bem-vindo</title>
+  <link rel="stylesheet" href="index.css" />
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  background: url('Lojabackground.png') center center / cover no-repeat fixed;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: #333;
+}
+    h1 {
+      color: white;
+    }
+
+    .produtos-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 900px;
+      margin: 40px auto;
+    }
+
+    .produto {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px 20px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.08);
+      flex: 1;
+      min-width: 280px;
+      max-width: 420px;
+      text-align: left;
+    }
+
+    .produto h2 {
+      margin-top: 0;
+      color: #2e7c33;
+    }
+
+    .produto p {
+      font-size: 16px;
+      margin: 12px 0 20px;
+    }
+
+    .produto button {
+      background-color: #28a745;
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .produto button:hover {
+      background-color: #218838;
+    }
+
+    @media (max-width: 768px) {
+      .produtos-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <h1>Olá, <span id="username">usuário</span>! 👋</h1>
+  <p style="color:white;">Confira os itens disponíveis na Loja da Cisum:</p>
+
+  <div class="produtos-grid">
+    <div class="produto">
+      <h2>Bot Premium</h2>
+      <p>Desbloqueie comandos avançados e suporte exclusivo.</p>
+      <button>Adquirir</button>
+    </div>
+
+    <div class="produto">
+      <h2>Insígnia VIP</h2>
+      <p>Destaque-se na comunidade com uma insígnia especial.</p>
+      <button onclick="window.location.href='vip.html'">Adquirir</button>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script>
+    const loadPart = (id, file) => {
+      fetch(file)
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById(id).innerHTML = html;
+          if (id === "header") {
+            setTimeout(() => {
+              const user = JSON.parse(localStorage.getItem("discordUser"));
+              const userArea = document.querySelector("#user-area");
+              if (user && userArea) {
+                userArea.innerHTML = `
+                  <div class="logged-user" style="display:flex; align-items:center; gap:10px;">
+                    <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png"
+                         style="width:32px; height:32px; border-radius:50%; border:2px solid #007bff;" />
+                    <span style="font-weight:bold; color:#2e7c33;">${user.username}</span>
+                    <button onclick="logoutDiscord()" 
+                            style="background-color:transparent; border:none; color:#007bff; font-weight:bold; cursor:pointer;">
+                      Sair
+                    </button>
+                  </div>
+                `;
+                document.getElementById("username").textContent = user.username;
+              }
+            }, 200);
+          }
+        });
+    };
+
+    const logoutDiscord = () => {
+      localStorage.removeItem("discordUser");
+      window.location.href = "/";
+    };
+
+    loadPart("header", "header.html");
+    loadPart("footer", "footer.html");
+  </script>
+</body>
+</html>

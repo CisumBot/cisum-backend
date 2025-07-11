@@ -1,0 +1,257 @@
+<!-- main.html -->
+<main>
+  <div id="header"></div>
+  <title>Cisum • Bot</title>
+  <!-- Apresentação da Cisum -->
+  <section class="profile-box">
+    <img src="avatar.png" alt="Avatar do Bot" class="avatar" />
+    <h2>Cisum</h2>
+    <p class="subtitle">
+      Sua assistente virtual no Discord com mais de 50 comandos divertidos e úteis
+    </p>
+    <a href="#" class="cta-btn">Adicionar ao Discord</a>
+  </section>
+
+  <!-- Estatísticas -->
+  <section class="stats-box">
+    <div class="stat">
+      <h3>50+</h3>
+      <p>Comandos</p>
+    </div>
+    <div class="stat">
+      <h3>2</h3>
+      <p>Servidores</p>
+    </div>
+    <div class="stat">
+      <h3>30</h3>
+      <p>Usuários</p>
+    </div>
+    <div class="stat">
+      <h3 id="uptime">Carregando...</h3>
+      <p>Uptime</p>
+    </div>
+  </section>
+
+  <!-- Funcionalidades -->
+  <section class="features-box">
+    <h2>Funcionalidades</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <img src="icons/moderacao1.png" alt="Moderação" />
+        <h4>Moderação</h4>
+        <p>Modere canais e usuários com facilidade</p>
+      </div>
+      <div class="feature">
+        <img src="icons/interacoes.png" alt="Interações Sociais" />
+        <h4>Interações Sociais</h4>
+        <p>Comandos divertidos como abraçar, beijar e ship</p>
+      </div>
+      <div class="feature">
+        <img src="icons/jogos.png" alt="Jogos" />
+        <h4>Jogos</h4>
+        <p>Jokenpo, adivinhação, batalha naval e muito mais</p>
+      </div>
+      <div class="feature">
+        <img src="icons/moderacao2.png" alt="Moderação Avançada" />
+        <h4>Ferramentas de Moderação</h4>
+        <p>Administre seu servidor com recursos avançados</p>
+      </div>
+      <div class="feature">
+        <img src="icons/figurinhas.png" alt="Figurinhas" />
+        <h4>Sistema de Figurinhas</h4>
+        <p>Colecione e troque figurinhas únicas</p>
+      </div>
+      <div class="feature">
+        <img src="icons/utilidades.png" alt="Utilidades" />
+        <h4>Utilidades</h4>
+        <p>Clima, tradução, lembretes e muito mais</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style>
+  main {
+    font-family: Arial, sans-serif;
+  }
+
+  .profile-box {
+    background: linear-gradient(to bottom, #4ba74f, #247c2c);
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+  }
+
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    margin-bottom: 20px;
+  }
+
+  .profile-box h2 {
+    font-size: 32px;
+    margin: 10px 0;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  .cta-btn:hover {
+    background-color: #0069d9;
+  }
+
+  .stats-box {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+    background-color: #f3f3f3;
+  }
+
+  .stat {
+    background-color: #e8f5e9; /* Altere a cor aqui se quiser */
+    width: 180px;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat h3 {
+    font-size: 28px;
+    color: #28a745;
+    margin-bottom: 10px;
+  }
+
+  .stat p {
+    font-size: 16px;
+    color: #333;
+  }
+
+  .features-box {
+    padding: 50px 20px;
+    background-color: #f3f3f3;
+    text-align: center;
+  }
+
+  .features-box h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: black;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    justify-content: center;
+    padding: 0 10px;
+  }
+
+  .feature {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s;
+    text-align: center;
+  }
+
+  .feature:hover {
+    transform: translateY(-5px);
+  }
+
+  .feature img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 15px;
+  }
+
+  .feature h4 {
+    font-size: 20px;
+    color: #247c2c;
+    margin-bottom: 10px;
+  }
+
+  .feature p {
+    font-size: 15px;
+    color: black;
+  }
+
+  @media (max-width: 900px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  fetch("https://cisum.discloud.app/uptime")
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("uptime").textContent = data.uptime;
+    })
+    .catch(error => {
+      console.error("Erro ao buscar uptime:", error);
+      document.getElementById("uptime").textContent = "Offline";
+    });
+</script>
+
+<script>
+  // Carrega o cabeçalho
+  fetch("header.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("header").innerHTML = html;
+
+      // Se o usuário estiver logado, exibe nome e avatar
+      setTimeout(() => {
+        const user = JSON.parse(localStorage.getItem("discordUser"));
+        const userArea = document.querySelector("#user-area");
+
+        if (user && userArea) {
+          userArea.innerHTML = `
+            <div class="logged-user" style="display:flex; align-items:center; gap:10px;">
+              <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png"
+                   style="width:32px; height:32px; border-radius:50%; border:2px solid #007bff;" />
+              <span style="font-weight:bold; color:#2e7c33;">${user.username}</span>
+              <button onclick="logoutDiscord()" 
+                style="background-color:transparent; border:none; color:#007bff; font-weight:bold; cursor:pointer; padding:6px 12px; border-radius:6px;">
+                Sair
+              </button>
+            </div>
+          `;
+        }
+      }, 200);
+    });
+
+  function logoutDiscord() {
+    localStorage.removeItem("discordUser");
+    window.location.reload();
+  }
+</script>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+     <script>
+    const user = JSON.parse(localStorage.getItem("discordUser"));
+    if (!user) window.location.href = "loja_guest.html";
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cisum • VIP</title>
+  <link rel="stylesheet" href="index.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #4ba74f, #247c2c);
+      color: white;
+      text-align: center;
+    }
+
+    img.banner {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .info-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      background: white;
+      color: #333;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 40px auto;
+      border-radius: 20px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .info-section h2 {
+      color: #2e7c33;
+      margin-top: 0;
+    }
+
+    .info-section p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .info-section img {
+      width: 100%;
+      max-width: 260px;
+      border-radius: 12px;
+      border: 3px solid #2e7c33;
+    }
+
+    .planos {
+      background: white;
+      color: #333;
+      padding: 40px 20px;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .plano {
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 25px;
+      margin: 20px auto;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      text-align: left;
+    }
+
+    .plano h2 {
+      margin-top: 0;
+      color: #2e7c33;
+    }
+
+    .preco {
+      font-size: 22px;
+      font-weight: bold;
+      color: #007bff;
+      margin: 8px 0 16px;
+    }
+
+    .plano button {
+      background-color: #28a745;
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .plano button:hover {
+      background-color: #218838;
+    }
+
+    .voltar {
+      display: inline-block;
+      margin-top: 30px;
+      color: #007bff;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <img src="tumbvip.png" alt="Banner VIP" class="banner" />
+
+  <div class="info-section">
+    <div style="flex: 1; min-width: 260px;">
+      <h2>Deseja me ajudar? 💚</h2>
+      <p>
+        Manter a Cisum online exige esforço e recursos — e se você quiser pode me ajudar a me manter online!<br /><br />
+        Os custos mensais para manter o bot vivo são reais, e todo apoio é extremamente bem-vindo. Ao adquirir o VIP, você ajuda diretamente o projeto e ainda ganha vantagens exclusivas dentro da comunidade! 🏆<br /><br />
+        E claro: usar a Cisum é grátis — o VIP é opcional e feito para quem quer apoiar.
+      </p>
+    </div>
+    <div style="flex: 0 0 260px;">
+      <img src="vipavatar.png" alt="Avatar VIP" />
+    </div>
+  </div>
+
+<div class="tabela-vantagens" style="max-width:900px; margin:40px auto; background:white; color:#333; border-radius:12px; box-shadow:0 0 12px rgba(0,0,0,0.08); overflow-x:auto;">
+  <table style="width:100%; border-collapse:collapse;">
+    <thead>
+      <tr style="background-color:#28a745; color:white;">
+        <th style="padding:16px; text-align:left;">Benefícios</th>
+        <th style="padding:16px;">Grátis</th>
+        <th style="padding:16px;">VIP Bronze</th>
+        <th style="padding:16px;">VIP Prata</th>
+        <th style="padding:16px;">VIP Ouro</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:14px;">Insígnia especial no Perfil</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+      </tr>
+      <tr style="background-color:#f9f9f9;">
+        <td style="padding:14px;">Acesso a comandos premium</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+      </tr>
+      <tr>
+        <td style="padding:14px;">Suporte prioritário</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+      </tr>
+      <tr style="background-color:#f9f9f9;">
+        <td style="padding:14px;">Execução ilimitada de comandos (sem cooldown)</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+      </tr>
+      <tr>
+        <td style="padding:14px;">Bônus ao receber o daily</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">1,25x</td>
+        <td style="text-align:center;">2,40x</td>
+        <td style="text-align:center;">3,60x</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="destaque-insignia" style="max-width:900px; margin:40px auto; background:white; padding:30px 20px; border-radius:16px; box-shadow:0 0 12px rgba(0,0,0,0.05); display:flex; flex-wrap:wrap; align-items:center; gap:30px;">
+  <div style="flex:1; min-width:260px;">
+    <img src="selovipperfil.png" alt="Insígnia no Perfil" style="width:100%; border-radius:12px; border:3px solid #28a745;" />
+  </div>
+  <div style="flex:2; min-width:100%;">
+    <h2 style="color:#2e7c33;">Insígnia especial no seu perfil</h2>
+    <p style="font-size:17px; color:#333; line-height:1.6;">
+      Ao adquirir qualquer plano VIP, você recebe uma insígnia exclusiva que aparece no seu perfil ao executar o comando !perfil. Além de valorizar seu apoio, ela dá destaque especial para você na comunidade! 💫
+    </p>
+  </div>
+</div>
+
+
+
+  <div class="planos">
+    <div class="plano">
+      <h2>VIP Bronze</h2>
+      <p class="preco">R$ 1,99 p/mês</p>
+      <button>Assinar</button>
+    </div>
+
+    <div class="plano">
+      <h2>VIP Prata</h2>
+      <p class="preco">R$ 2,99 p/mês</p>
+      <button>Assinar</button>
+    </div>
+
+    <div class="plano">
+      <h2>VIP Ouro</h2>
+      <p class="preco">R$ 3,99 p/mês</p>
+      <button>Assinar</button>
+    </div>
+
+    <a href="loja_user.html" class="voltar">← Voltar para a loja</a>
+  </div>
+
+  <div id="footer"></div>
+
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header").innerHTML = html;
+
+        setTimeout(() => {
+          const user = JSON.parse(localStorage.getItem("discordUser"));
+          const userArea = document.querySelector("#user-area");
+
+          if (user && userArea) {
+            userArea.innerHTML = `
+              <div class="logged-user" style="display:flex; align-items:center; gap:10px;">
+                <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png"
+                     style="width:32px; height:32px; border-radius:50%; border:2px solid #007bff;" />
+                <span style="font-weight:bold; color:#2e7c33;">${user.username}</span>
+                <button onclick="logoutDiscord()"
+                  style="background-color:transparent; border:none; color:#007bff; font-weight:bold; cursor:pointer;">
+                  Sair
+                </button>
+              </div>
+            `;
+          }
+
+          const navLinks = document.querySelectorAll(".nav-btn");
+          const currentPage = window.location.pathname.split("/").pop();
+          navLinks.forEach(link => {
+            const href = link.getAttribute("href");
+            if (href === "loja.html" || currentPage.includes("vip")) {
+              link.classList.add("green");
+            } else {
+              link.classList.remove("green");
+            }
+          });
+        }, 300);
+      });
+
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(html => document.getElementById("footer").innerHTML = html);
+
+    function logoutDiscord() {
+      localStorage.removeItem("discordUser");
+      window.location.href = "/";
+    }
+  </script>
+</body>
+</html>
